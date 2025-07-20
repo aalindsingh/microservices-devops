@@ -53,3 +53,7 @@ output "payments_repository_url" {
 output "ecr_role_arn" {
   value = module.github_oidc_role.role_arn
 }
+
+output "github_oidc_provider_arn" {
+  value = module.github_oidc_role.oidc_provider_arn
+}
