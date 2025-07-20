@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+.env
+venv/
+env/
+
+# Docker
+*.log
+docker-compose.override.yml
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.crash
+.terraform/
+.terraform.lock.hcl
+*.backup
+override.tf
+override.tf.json
+terraform.tfvars
+
+# VS Code / IDEs
+.vscode/
+.idea/
+*.swp
+
+# System
+.DS_Store
+Thumbs.db
+
+# GitHub Actions artifacts
+*.retry
+*.pid
+*.sock
+
+# Kubernetes manifests (optional: if generated dynamically)
+*.yaml
+
+# Others
+*.bak
+*.tmp
