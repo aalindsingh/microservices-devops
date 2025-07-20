@@ -49,3 +49,7 @@ output "orders_repository_url" {
 output "payments_repository_url" {
   value = module.ecr_payments.repository_url
 }
+
+output "ecr_role_arn" {
+  value = module.github_oidc_role.role_arn
+}

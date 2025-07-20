@@ -1,0 +1,40 @@
+name: Build & Push orders-service to ECR
+
+on:
+  push:
+    paths:
+      - 'app/orders-service/**'
+      - '.github/workflows/orders-service.yml'
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: orders-service
+  IMAGE_TAG: ${{ github.sha }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::571600835023:role/github-actions-ecr-push
+        role-session-name: github-actions
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Build, tag, and push image to ECR
+      run: |
+        docker build -t $ECR_REPOSITORY:$IMAGE_TAG ./app/users-service
+        docker tag $ECR_REPOSITORY:$IMAGE_TAG ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG

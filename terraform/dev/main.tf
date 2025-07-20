@@ -53,3 +53,10 @@ module "ecr_payments" {
   source = "../modules/ecr"
   name   = "payments-service"
 }
+
+module "github_oidc_role" {
+  source     = "../modules/github_oidc_role"
+  role_name  = "github-actions-ecr-push"
+  repo_name  = "aalindsingh/microservices-devops"
+  account_id = "571600835023"
+}
